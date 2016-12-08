@@ -21,7 +21,6 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName(_fromUtf8("Form"))
         Form.resize(436, 517)
-        
         Form.setMinimumSize(QtCore.QSize(436, 400))
         Form.setMaximumSize(QtCore.QSize(454, 503))
 
@@ -132,19 +131,19 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         Form.setWindowTitle(_translate("Form", "BriarIDS", None))
         self.pushButton.setToolTip(_translate("Form", "This installs Suricata and also checks if Suricata is already installed", None))
-        self.pushButton.setText(_translate("Form", "Install", None))
+        self.pushButton.setText(_translate("Form", "Install Suricata", None))
         self.pushButton.clicked.connect(self.install)
         self.label_2.setText(_translate("Form", "<html><head/><body><p><span style=\" font-size:10pt; color:#0055ff;\">Welcome to BriarIDS -  designed for the Raspberry Pi</span></p></body></html>", None))
         self.pushButton_2.setToolTip(_translate("Form", "This starts the Suricata IDS engine and displays log alerts in the terminal", None))
         self.pushButton_2.setText(_translate("Form", "Run Suricata", None))
         self.pushButton_2.clicked.connect(self.runtheprog)
         self.pushButton_3.setToolTip(_translate("Form", "This checks for most recent updates...", None))
-        self.pushButton_3.setText(_translate("Form", "Check for Updates", None))
+        self.pushButton_3.setText(_translate("Form", "Check for Updates from GitHub", None))
         self.pushButton_3.clicked.connect(self.updatecheck)
-        self.pushButton_4.setToolTip(_translate("Form", "This compares your active configuration with the recommended configuration", None))
-        self.pushButton_4.setText(_translate("Form", "Check Suricata Configuration", None))
+        self.pushButton_4.setToolTip(_translate("Form", "Add in your public/WAN IP", None))
+        self.pushButton_4.setText(_translate("Form", "Add WAN IP to config for monitoring", None))
         self.pushButton_5.setToolTip(_translate("Form", "This installs Bro and the Critical Stack Intel Feed client", None))
-        self.pushButton_5.setText(_translate("Form", "(NEW) Install Bro and Intel Feed Agent", None))
+        self.pushButton_5.setText(_translate("Form", "Install Bro-2.5 and Intel Feed Agent", None))
         self.pushButton_5.clicked.connect(self.brointelinstall)
         self.pushButton_4.clicked.connect(self.configcheck)
         self.comboBox.setItemText(0, _translate("Form", "eth0", None))
@@ -165,6 +164,7 @@ class Ui_Form(object):
         print ("Note: You can view your alert logs by issuing the following command: tail -f /var/log/suricata/http.log /var/log/suricata/fast.log")
         os.system("sleep 5")
         print "Starting Suricata!!!"
+        os.system("./rulecleanup.sh")
         mycommand='/opt/suricata/bin/suricata -c /opt/suricata/etc/suricata/suricata.yaml --af-packet='+monint
         os.system("x-terminal-emulator -e "+mycommand)
     def configcheck(self):
